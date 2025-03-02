@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarafath Opticals</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Login Container -->
+    <div id="loginContainer" class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <i class="fas fa-glasses"></i>
+                <h2>Sarafath Opticals</h2>
+                <p>Eye Care & Contact Lens Clinic</p>
+            </div>
+            <form id="loginForm" onsubmit="return login(event)">
+                <div class="form-group">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Main Dashboard Container (will be hidden until login) -->
+    <div id="dashboardContainer" class="dashboard-container" style="display: none;">
+        <div class="dashboard-container">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="logo-section">
+                    <i class="fas fa-glasses"></i>
+                    <h2>Sarafath Opticals</h2>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#" class="nav-item active" onclick="showSection('dashboard')">
+                        <i class="fas fa-home"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('addPatient')">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Add Patient</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('patientList')">
+                        <i class="fas fa-users"></i>
+                        <span>Patient List</span>
+                    </a>
+                    <a href="#" class="nav-item" onclick="showSection('profileSection')">
+                        <i class="fas fa-user-circle"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="#" class="nav-item logout-item" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="content-section active">
+                    <h1>Welcome to Sarafath Opticals</h1>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <i class="fas fa-users"></i>
+                            <div class="stat-info">
+                                <h3>Total Patients</h3>
+                                <p id="totalPatients">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-calendar-alt"></i>
+                            <div class="stat-info">
+                                <h3>Today's Patients</h3>
+                                <p id="todayPatients">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <i class="fas fa-glasses"></i>
+                            <div class="stat-info">
+                                <h3>Prescriptions</h3>
+                                <p id="totalPrescriptions">0</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="quick-actions">
+                        <button onclick="showSection('addPatient')">
+                            <i class="fas fa-user-plus"></i>
+                            Add New Patient
+                        </button>
+                        <button onclick="showSection('patientList')">
+                            <i class="fas fa-list"></i>
+                            View Patient List
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add Patient Form Section -->
+                <div id="addPatient" class="content-section">
+                    <div class="form-container">
+                        <h2>Add New Patient</h2>
+                        <form id="patientForm">
+                            <div class="patient-info-grid">
+                                <div class="form-group">
+                                    <label for="name">Patient Name:</label>
+                                    <input type="text" id="name" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label for="age">Age:</label>
+                                    <input type="number" id="age" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="gender">Gender:</label>
+                                    <select id="gender" required>
+                                        <option value="">Select Gender</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="phone">Phone Number:</label>
+                                    <input type="tel" id="phone" required>
+                                </div>
+
+                                <div class="form-group full-width">
+                                    <label for="address">Address:</label>
+                                    <input type="text" id="address">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="mainComplaint">Main Complaint:</label>
+                                <div class="history-options">
+                                    <label class="option-button">
+                                        <input type="checkbox" name="mainComplaint" value="Redness">
+                                        <span>Redness</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="mainComplaint" value="Itching">
+                                        <span>Itching</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="mainComplaint" value="Watering">
+                                        <span>Watering</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="mainComplaint" value="Blur Vision">
+                                        <span>Blur Vision</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="mainComplaint" value="Headache">
+                                        <span>Headache</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="mainComplaint" value="Eye Strain">
+                                        <span>Eye Strain</span>
+                                    </label>
+                                </div>
+                                <textarea id="mainComplaintOther" rows="2" placeholder="Other complaints..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="ocularHistory">Ocular History:</label>
+                                <div class="history-options">
+                                    <label class="option-button">
+                                        <input type="checkbox" name="ocularHistory" value="Glasses">
+                                        <span>Glasses</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="ocularHistory" value="Contact Lens">
+                                        <span>Contact Lens</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="ocularHistory" value="Cataract">
+                                        <span>Cataract</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="ocularHistory" value="Glaucoma">
+                                        <span>Glaucoma</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="ocularHistory" value="LASIK">
+                                        <span>LASIK</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="ocularHistory" value="Eye Surgery">
+                                        <span>Eye Surgery</span>
+                                    </label>
+                                </div>
+                                <textarea id="ocularHistoryOther" rows="2" placeholder="Other ocular history..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="medicalHistory">Medical History:</label>
+                                <div class="history-options">
+                                    <label class="option-button">
+                                        <input type="checkbox" name="medicalHistory" value="Hypertension (HT)">
+                                        <span>Hypertension (HT)</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="medicalHistory" value="Diabetes (DM)">
+                                        <span>Diabetes (DM)</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="medicalHistory" value="Thyroid">
+                                        <span>Thyroid</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="medicalHistory" value="Cardiac">
+                                        <span>Cardiac</span>
+                                    </label>
+                                    <label class="option-button">
+                                        <input type="checkbox" name="medicalHistory" value="Asthma">
+                                        <span>Asthma</span>
+                                    </label>
+                                </div>
+                                <textarea id="medicalHistoryOther" rows="2" placeholder="Other medical history..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Previous Glass Prescription (PGP):</label>
+                                <div class="prescription-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Rx</th>
+                                                <th colspan="4">Right Eye (OD)</th>
+                                                <th colspan="4">Left Eye (OS)</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>Sphere</th>
+                                                <th>Cylinder</th>
+                                                <th>Axis</th>
+                                                <th>VA</th>
+                                                <th>Sphere</th>
+                                                <th>Cylinder</th>
+                                                <th>Axis</th>
+                                                <th>VA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Distance</td>
+                                                <td><input type="number" id="pgpRightDistSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="pgpRightDistCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="pgpRightDistAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="pgpRightDistVa" placeholder="VA"></td>
+                                                <td><input type="number" id="pgpLeftDistSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="pgpLeftDistCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="pgpLeftDistAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="pgpLeftDistVa" placeholder="VA"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Near</td>
+                                                <td><input type="number" id="pgpRightNearSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="pgpRightNearCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="pgpRightNearAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="pgpRightNearVa" placeholder="VA"></td>
+                                                <td><input type="number" id="pgpLeftNearSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="pgpLeftNearCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="pgpLeftNearAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="pgpLeftNearVa" placeholder="VA"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Auto Refraction:</label>
+                                <div class="prescription-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Rx</th>
+                                                <th colspan="3">Right Eye (OD)</th>
+                                                <th colspan="3">Left Eye (OS)</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>Spherical</th>
+                                                <th>Cylindrical</th>
+                                                <th>Axis</th>
+                                                <th>Spherical</th>
+                                                <th>Cylindrical</th>
+                                                <th>Axis</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Distance</td>
+                                                <td><input type="number" id="autoRightDistSph" step="0.25" placeholder="Spherical"></td>
+                                                <td><input type="number" id="autoRightDistCyl" step="0.25" placeholder="Cylindrical"></td>
+                                                <td><input type="number" id="autoRightDistAxis" placeholder="Axis"></td>
+                                                <td><input type="number" id="autoLeftDistSph" step="0.25" placeholder="Spherical"></td>
+                                                <td><input type="number" id="autoLeftDistCyl" step="0.25" placeholder="Cylindrical"></td>
+                                                <td><input type="number" id="autoLeftDistAxis" placeholder="Axis"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Near</td>
+                                                <td><input type="number" id="autoRightNearSph" step="0.25" placeholder="Spherical"></td>
+                                                <td><input type="number" id="autoRightNearCyl" step="0.25" placeholder="Cylindrical"></td>
+                                                <td><input type="number" id="autoRightNearAxis" placeholder="Axis"></td>
+                                                <td><input type="number" id="autoLeftNearSph" step="0.25" placeholder="Spherical"></td>
+                                                <td><input type="number" id="autoLeftNearCyl" step="0.25" placeholder="Cylindrical"></td>
+                                                <td><input type="number" id="autoLeftNearAxis" placeholder="Axis"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Visual Acuity:</label>
+                                <div class="prescription-grid">
+                                    <div class="eye-section">
+                                        <h3>Right Eye (OD)</h3>
+                                        <div class="va-grid">
+                                            <div class="va-row">
+                                                <span class="va-label">UCVA</span>
+                                                <div class="va-options">
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">PL-</button>
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">PL+</button>
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">FL</button>
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">HM</button>
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">CFCF</button>
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">FC</button>
+                                                    <button type="button" class="va-button" data-eye="right" data-type="ucva">1/60</button>
+                                                </div>
+                                            </div>
+                                            <div class="va-row number-options">
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">2/60</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">3/60</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">4/60</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">5/60</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/60</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/36</button>
+                                            </div>
+                                            <div class="va-row number-options">
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/24</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/18</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/12</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/9</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/7.5</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/6</button>
+                                                <button type="button" class="va-button" data-eye="right" data-type="ucva">6/5</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="eye-section">
+                                        <h3>Left Eye (OS)</h3>
+                                        <div class="va-grid">
+                                            <div class="va-row">
+                                                <span class="va-label">UCVA</span>
+                                                <div class="va-options">
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">PL-</button>
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">PL+</button>
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">FL</button>
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">HM</button>
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">CFCF</button>
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">FC</button>
+                                                    <button type="button" class="va-button" data-eye="left" data-type="ucva">1/60</button>
+                                                </div>
+                                            </div>
+                                            <div class="va-row number-options">
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">2/60</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">3/60</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">4/60</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">5/60</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/60</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/36</button>
+                                            </div>
+                                            <div class="va-row number-options">
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/24</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/18</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/12</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/9</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/7.5</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/6</button>
+                                                <button type="button" class="va-button" data-eye="left" data-type="ucva">6/5</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Subjective Refraction:</label>
+                                <div class="prescription-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Rx</th>
+                                                <th colspan="4">Right Eye (OD)</th>
+                                                <th colspan="4">Left Eye (OS)</th>
+                                            </tr>
+                                            <tr>
+                                                <th></th>
+                                                <th>Sphere</th>
+                                                <th>Cylinder</th>
+                                                <th>Axis</th>
+                                                <th>VA</th>
+                                                <th>Sphere</th>
+                                                <th>Cylinder</th>
+                                                <th>Axis</th>
+                                                <th>VA</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Distance</td>
+                                                <td><input type="number" id="subRightDistSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="subRightDistCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="subRightDistAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="subRightDistVa" placeholder="VA"></td>
+                                                <td><input type="number" id="subLeftDistSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="subLeftDistCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="subLeftDistAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="subLeftDistVa" placeholder="VA"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Near</td>
+                                                <td><input type="number" id="subRightNearSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="subRightNearCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="subRightNearAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="subRightNearVa" placeholder="VA"></td>
+                                                <td><input type="number" id="subLeftNearSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="subLeftNearCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="subLeftNearAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="subLeftNearVa" placeholder="VA"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label>Glass Prescription:</label>
+                                <div class="prescription-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Rx</th>
+                                                <th>Sphere</th>
+                                                <th>Cylinder</th>
+                                                <th>Axis</th>
+                                                <th>Prism</th>
+                                                <th>Add</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Right (OD)</td>
+                                                <td><input type="number" id="rightSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="rightCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="rightAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="rightPrism" placeholder="-"></td>
+                                                <td><input type="number" id="rightAdd" step="0.25" placeholder="Add"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Left (OS)</td>
+                                                <td><input type="number" id="leftSph" step="0.25" placeholder="Sphere"></td>
+                                                <td><input type="number" id="leftCyl" step="0.25" placeholder="Cylinder"></td>
+                                                <td><input type="number" id="leftAxis" placeholder="Axis"></td>
+                                                <td><input type="text" id="leftPrism" placeholder="-"></td>
+                                                <td><input type="number" id="leftAdd" step="0.25" placeholder="Add"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4"></td>
+                                                <td>PD</td>
+                                                <td><input type="number" id="pd" step="0.5" placeholder="PD"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="comments-section">
+                                    <label for="prescriptionComments">Comments:</label>
+                                    <textarea id="prescriptionComments" rows="3" placeholder="Add any additional comments or notes..."></textarea>
+                                </div>
+                            </div>
+
+                            <button type="submit">Add Patient</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Patient List Section -->
+                <div id="patientList" class="content-section">
+                    <div class="patients-list">
+                        <h2>Patient Records</h2>
+                        <div class="search-section">
+                            <div class="search-bar">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchInput" placeholder="Search by ID, Name, Phone, or Age...">
+                            </div>
+                            <div class="search-filters">
+                                <label class="option-button">
+                                    <input type="checkbox" name="searchFilter" value="id" checked>
+                                    <span>ID</span>
+                                </label>
+                                <label class="option-button">
+                                    <input type="checkbox" name="searchFilter" value="name" checked>
+                                    <span>Name</span>
+                                </label>
+                                <label class="option-button">
+                                    <input type="checkbox" name="searchFilter" value="phone" checked>
+                                    <span>Phone</span>
+                                </label>
+                                <label class="option-button">
+                                    <input type="checkbox" name="searchFilter" value="age" checked>
+                                    <span>Age</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="patient-quick-list">
+                            <table class="patient-list-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient ID</th>
+                                        <th>Name</th>
+                                        <th>Visit Date</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="patientQuickList">
+                                    <!-- Patient list will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="patient-details-container" id="patientDetailsContainer">
+                            <div id="patientsList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Section -->
+                <div id="profileSection" class="content-section">
+                    <!-- Profile content will be dynamically populated -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
